@@ -116,16 +116,6 @@ Whoever creates an online game gets a secret seat token. The first person to ope
 
 Reviewing past moves needs every earlier position. Instead of sending all of them on every update, the client tells the server how many it already has (`?have=n`) and receives only the new ones. A late-game update stays around 1 to 2 KB instead of 30 KB.
 
-## Security
-
-- **Server authority:** all state, rules, randomness and timing live on the server (see [The server is the referee](#the-server-is-the-referee)).
-- **Information hiding:** in Fog of War each player receives only their own view, and spectators receive nothing until the end (see [Fog of War: the server only sends what you can see](#fog-of-war-the-server-only-sends-what-you-can-see)).
-- **Strict input checks:** exact JSON keys, exact types (`true` is not a difficulty level), square names matching `[a-h][1-8]`, ids and tokens matching their generated format. Bodies over 1 KB are rejected.
-- **Unguessable ids:** game ids are 128-bit random values. For vs-computer and same-device games, the id is what lets a reload resume the game. Online games also require a seat token.
-- **Limits:** AI thinking time is capped, rate limits apply per IP, and the number of stored games is bounded.
-- **Browser hardening:** a strict Content-Security-Policy (`script-src 'self'`, no inline scripts, no `eval`), plus HSTS, `nosniff`, `no-referrer` and `frame-ancestors 'none'`. API responses are `no-store`. The Docker image runs the server as an unprivileged user.
-- **Error handling:** stack traces go to the server log only. Clients see a generic error.
-
 ## Known limits
 
 - No draw offers.
@@ -134,10 +124,11 @@ Reviewing past moves needs every earlier position. Instead of sending all of the
 
 ## Screenshots
 
-| Start screen | Online game with a premove queued |
-|---|---|
-| ![Start screen](docs/screenshots/start-screen.png) | ![Online game, castling premoved](docs/screenshots/online-premove.png) |
+Start screen
+[Start screen](docs/screenshots/start-screen.png) 
 
-| Reviewing an earlier move | Phone |
-|---|---|
-| ![Move review](docs/screenshots/move-review.png) | ![Phone layout](docs/screenshots/mobile.png) |
+Online game with a premove queued
+[Online game, castling premoved](docs/screenshots/online-premove.png)
+
+Reviewing an earlier move
+[Move review](docs/screenshots/move-review.png)
